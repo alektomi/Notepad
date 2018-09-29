@@ -6,6 +6,7 @@ public class Person {
     private String name;
     private String surname;
     private String phone;
+    private String email;
 
     public Person() { // tas ir konstruktors. saucas ar lielo burtu, tā kā klase
         count++;
@@ -47,6 +48,10 @@ public class Person {
         this.phone = phone;
     }
 
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
+
     // šeit ielikām kursoru un ar labo taustiņu Generate -> toString -> iekrāsojām visu un Ok.
     // tas ir speciālais metods, kas parādā kā objektam jāformatējas stringā.
     // bez sīs metodes mēs redzētu tikai contakta ID
@@ -57,6 +62,7 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 ", count='" + count + '\'';
     }
 }

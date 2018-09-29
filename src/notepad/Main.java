@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static List<Person> newContact = new ArrayList<>();
@@ -19,13 +18,16 @@ public class Main {
 
         while (true) { // šeit ieliekām bezgalīgu ciklu, jo
             System.out.println("Enter command:");
-            String cmd = scanner.next();
-            switch (cmd) {
+            String command = scanner.next();
+            switch (command) {
                 case "create":
                     create();
                     break;
                 case "list":
                     showList();
+                    break;
+                case "help":
+                    help();
                     break;
                 case "remove":
                     removeContact();
@@ -38,6 +40,13 @@ public class Main {
         }
     }
 
+    private static void help() {
+        System.out.println("For new contact creation insert command create;");
+        System.out.println("To see the whole list of contacts insert command list;");
+        System.out.println("To delete a contact from the List insert command remove;");
+        System.out.println("To stop editing insert command exit;");
+    }
+
     private static void removeContact() {
         System.out.println("Which contact id do you want to delete?");
         int contactID = scanner.nextInt();
@@ -46,21 +55,24 @@ public class Main {
 
     private static void showList() {
         for (Person p : newContact) {
-//            System.out.printf("%s %s: %s\n", p.getName(), p.getSurname(), p.getPhone());
+//            System.out.printf("%s %s Phone: %s; E-mail: %s\n", p.getName(), p.getSurname(), p.getPhone(), p.getEmail());
             System.out.println(p); // ja sādi, tad būs nesmuki
         }
     }
 
 //    private static void loadContactList() {
-//        File file = new File ("contact_list.txt");
+//        File file = new File("contact_list.txt");
 //        try (Scanner in = new Scanner(file)) {
 //            while (in.hasNext()) {
 //                Person contacts = new Person();
-//                contacts.getName() = in.next();
-//                contacts.getSurname() = in.next();
-//                contacts.getPhone() = in.next();
+//                contacts.getName();
+//                contacts.getSurname();
+//                contacts.getPhone();
+//                contacts.getEmail();
 //                newContact.add(contacts);
 //            }
+//        } catch (IOException e) {
+//            System.out.println("Cannot load from file");
 //        }
 //    }
 
@@ -71,6 +83,8 @@ public class Main {
         String surname = scanner.next();
         System.out.println("Insert contact phone number");
         String phone = scanner.next();
+        System.out.println("Insert contact e-mail address");
+        String email = scanner.next();
 
         // ievadītu info mēs saglabājam mainīgajā "p" un to pievienojam Listam
 
@@ -78,6 +92,7 @@ public class Main {
         p.setName(name);
         p.setSurname(surname);
         p.setPhone(phone);
+        p.setEmail(email);
         newContact.add(p); // šī rinda saglabā ierakstus Listā
 
         System.out.println(p); // string lai parādītu uz ekrāna to ko esam ierakstījuši
@@ -88,13 +103,13 @@ public class Main {
     private static void saveContactToFile() {
         File file = new File("contact_list.txt");
         try (PrintWriter out = new PrintWriter(file)) {
-            for (Person r : newContact) {
-                out.printf("%s %s %s\r\n", r.getName(), r.getSurname(), r.getPhone());
+            for (Person p : newContact) {
+                out.printf("%s %s %s %s\r\n", p.getName(), p.getSurname(), p.getPhone(), p.getEmail());
             }
         } catch (IOException e) {
             System.out.println("Cannot save to file");
         }
     }
 }
-ffff
+
 
