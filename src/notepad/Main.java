@@ -55,10 +55,11 @@ public class Main {
 
     private static void showList() {
         for (Person p : newContact) {
-//            System.out.printf("%s %s Phone: %s; E-mail: %s\n", p.getName(), p.getSurname(), p.getPhone(), p.getEmail());
-            System.out.println(p); // ja sādi, tad būs nesmuki
+            System.out.printf("%s %s Phone: %s; E-mail: %s\n", p.getName(), p.getSurname(), p.getPhone(), p.getEmail());
+//            System.out.println(p); // ja sādi, tad būs nesmuki
         }
     }
+
 
 //    private static void loadContactList() {
 //        File file = new File("contact_list.txt");
@@ -77,13 +78,13 @@ public class Main {
 //    }
 
     private static void create() {
-        System.out.println("Insert contact name");
+        System.out.print("Insert contact name: ");
         String name = scanner.next();
-        System.out.println("Insert contact surname");
+        System.out.print("Insert contact surname: ");
         String surname = scanner.next();
-        System.out.println("Insert contact phone number");
-        String phone = scanner.next();
-        System.out.println("Insert contact e-mail address");
+        System.out.print("Insert contact phone number: ");
+        String phone = insertPhone();
+        System.out.print("Insert contact e-mail address: ");
         String email = scanner.next();
 
         // ievadītu info mēs saglabājam mainīgajā "p" un to pievienojam Listam
@@ -98,6 +99,20 @@ public class Main {
         System.out.println(p); // string lai parādītu uz ekrāna to ko esam ierakstījuši
 
         saveContactToFile();
+    }
+
+    private static String insertPhone() {
+        String insertPhone;
+
+        do {
+            insertPhone = scanner.next();
+            if (insertPhone.length() > 8 || insertPhone.length() < 8) {
+                System.out.println("Phone number must contain 8 digits!");
+                continue;
+            } else {
+                return insertPhone;
+            }
+        } while (true);
     }
 
     private static void saveContactToFile() {
