@@ -36,7 +36,7 @@ public class Main {
                 case "exit":
                     return;
                 default:
-                    System.out.println("It is not a command!");
+                    System.out.println("It is not a command! Use command help to get more information.");
             }
         }
     }
@@ -55,10 +55,27 @@ public class Main {
     }
 
     private static void showList() {
+
+        int maxLen = findMaxNameLen();
+
         for (Person p : newContact) {
-            System.out.printf("%s %s Phone: %s; E-mail: %s\n", p.getName(), p.getSurname(), p.getPhone(), p.getEmail());
-            System.out.println(p); // ja sādi, tad būs nesmuki
+            System.out.printf("%s %s", p.getName(), p.getSurname());
+            for (int i = 0; i < (maxLen - (p.getName().length() + p.getSurname().length())); i++) {
+                System.out.print(" ");
+            }
+            System.out.printf("  Phone: %s; E-mail: %s\n", p.getPhone(), p.getEmail());
+//            System.out.println(p); // ja sādi, tad būs nesmuki
         }
+    }
+
+    private static int findMaxNameLen() {
+        int result = 0;
+        for (Person p : newContact) {
+            if (result < p.getName().length() + p.getSurname().length()) {
+                result = p.getName().length() + p.getSurname().length();
+            }
+        }
+        return result;
     }
 
 
