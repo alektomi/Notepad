@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,7 +57,7 @@ public class Main {
     private static void showList() {
         for (Person p : newContact) {
             System.out.printf("%s %s Phone: %s; E-mail: %s\n", p.getName(), p.getSurname(), p.getPhone(), p.getEmail());
-//            System.out.println(p); // ja sādi, tad būs nesmuki
+            System.out.println(p); // ja sādi, tad būs nesmuki
         }
     }
 
@@ -95,6 +96,8 @@ public class Main {
         p.setPhone(phone);
         p.setEmail(email);
         newContact.add(p); // šī rinda saglabā ierakstus Listā
+
+        newContact.sort(Comparator.comparing(p0 -> p0.getName()));
 
         System.out.println(p); // string lai parādītu uz ekrāna to ko esam ierakstījuši
 
