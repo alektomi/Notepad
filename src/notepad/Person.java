@@ -48,12 +48,12 @@ public class Person extends Record { // extends nasleduet vse iz Record, a Perso
     // bez sīs metodes mēs redzētu tikai contakta ID
     @Override
     public String toString() {
-        return "Person{" +
-                "id=" + getId() +
-                ", name: '" + name + '\'' +
-                ", surname: '" + surname + '\'' +
-                ", phone: '" + phone + '\'' +
-                ", email: '" + email + '\'';
+        return "Person " +
+                "id: " + getId() +
+                ", Name: " + name +
+                ", Surname: " + surname +
+                ", phone: " + phone +
+                ", e-mail: " + email ;
     }
 
     @Override
@@ -62,5 +62,18 @@ public class Person extends Record { // extends nasleduet vse iz Record, a Perso
                 || surname.contains(str)
                 || phone.contains(str)
                 || email.contains(str);
+    }
+
+    @Override
+    public void askQuestions() {
+        System.out.print("Insert contact name: ");
+        name = Main.askString();
+        System.out.print("Insert contact surname: ");
+        surname = Main.askString();
+        System.out.print("Insert contact phone number: ");
+        phone = Main.insertPhone();
+        System.out.print("Insert contact e-mail address: ");
+        email = Main.askString();
+
     }
 }

@@ -13,14 +13,19 @@ public class NoteText extends Record {
 
     @Override
     public String toString() {
-        return "NoteText{" +
-                "id=" + getId() + "," +
-                "note='" + note + '\'' +
-                '}';
+        return "NoteText " +
+                "id: " + getId() + ", " +
+                "Note: " + note ;
     }
 
     @Override
     public boolean hasSubstring(String str) {
         return note.contains(str);
+    }
+
+    @Override
+    public void askQuestions() {
+        System.out.println("Take a note: ");
+        note = Main.askString();
     }
 }

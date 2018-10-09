@@ -11,6 +11,7 @@ public abstract class Record {
 
     public abstract boolean hasSubstring(String str); //u ljubogo recorda dolzhen bytj abstraktnyj metod substring.
 
+    public abstract void askQuestions();
 
     public int getId() {
         return id;
