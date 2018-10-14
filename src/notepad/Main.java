@@ -3,7 +3,9 @@ package notepad;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -171,18 +173,35 @@ public class Main {
 
 
     public static LocalDate askDate() {
-        String d = askString();
-        LocalDate date = LocalDate.parse(d, DATE_FORMATTER);
-        return date;
+        String d;
+        LocalDate date;
+        do {
+            try {
+                d = askString();
+                date = LocalDate.parse(d, DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                System.out.println("Wrong date format. You must insert date in dd.MM.yyyy format.");
+                continue;
+            }
+            return date;
+        } while (true);
     }
 
 
     public static LocalTime askTime() {
-        String t = askString();
-        LocalTime time = LocalTime.parse(t, TIME_FORMATTER);
-        return time;
+        String t;
+        LocalTime time;
+        do {
+            try {
+                t = askString();
+                time = LocalTime.parse(t, TIME_FORMATTER);
+            } catch (DateTimeParseException e) {
+                System.out.println("Wrong time format. You must insert time in HH:mm format.");
+                continue;
+            }
+            return time;
+        } while (true);
     }
-
 }
 
 
