@@ -4,10 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public final static String DATE_FORMAT = "dd.MM.yyyy"; // Zadaem format daty; public = dostupnaja vsem; final = tol'ko zdesj my zadaem znachenija; UPPER case = t.k. jeto konstanta
@@ -17,7 +14,7 @@ public class Main {
 
 
     static Scanner scanner = new Scanner(System.in);
-    static List<Record> recordList = new ArrayList<>(); //Person zamenili na Record
+    static Map<Integer, Record> recordList = new LinkedHashMap<>();
 
 
     public static void main(String[] args) {
@@ -34,7 +31,7 @@ public class Main {
                 case "note":
                     createNote();
                     break;
-                case "createreminder":
+                case "reminder":
                 case "cr":
                     createReminder();
                     break;
@@ -44,11 +41,21 @@ public class Main {
                 case "find":
                     find();
                     break;
+                case "show":
+                    showByID();
+                    break;
                 case "help":
                     help();
                     break;
                 case "remove":
                     removeContact();
+                    break;
+                case "alarm":
+                    createAlarm();
+                    break;
+                case "expired":
+                case "ex":
+                    showExpired();
                     break;
                 case "exit":
                     return;
@@ -56,6 +63,33 @@ public class Main {
                     System.out.println("It is not a command! Use command help to get more information.");
             }
         }
+    }
+
+    private static void showExpired() {
+        for (Record r : recordList.values()) {
+            if (r instanceof Expirable) {
+                Expirable e = (Expirable) r; //v skobkah ja nasilno podtverzhdaju, chto r vsegda Expirable
+                if (e.isExpired()) {
+                    System.out.println(r);
+                }
+            }
+        }
+    }
+
+    private static void createAlarm() {
+        var alarm = new Alarm();
+        addRecord(alarm);
+    }
+
+
+    private static void showByID() {
+        System.out.print("Insert ID for value: ");
+        int id = scanner.nextInt();
+
+//        Record record = recordList.get(id);
+//        System.out.println(id);
+
+        System.out.println(recordList.get(id)); // cikl ne nuzhen, tak kak my rabotaem s map i associativnym listom
     }
 
 
@@ -69,7 +103,7 @@ public class Main {
         System.out.println("What to look for?");
         String str = askString();
 
-        for (Record r : recordList) {
+        for (Record r : recordList.values()) {
             if (r.hasSubstring(str)) {
                 System.out.println(r);
             }
@@ -94,13 +128,7 @@ public class Main {
     private static void removeContact() {
         System.out.println("Which contact id do you want to delete?");
         int contactID = scanner.nextInt();
-        for (int i = 0; i < recordList.size(); i++) {
-            Record p = recordList.get(i);
-            if (contactID == p.getId()) {
-                recordList.remove(i);
-                break;
-            }
-        }
+        recordList.remove(contactID);
     }
 
     // 2. variants:
@@ -116,7 +144,7 @@ public class Main {
 //}
 
     private static void showList() {
-        for (Record p : recordList) {
+        for (Record p : recordList.values()) {
             System.out.println(p);
         }
     }
@@ -134,7 +162,7 @@ public class Main {
         //izvēlamies ka tas ir Record
         //lai būtu saprotamāk, mainām sākotnējās mainīgās vērtību nosaukumu uz, kā šajā gadījumā, uz person
         record.askQuestions();
-        recordList.add(record); // šī rinda saglabā ierakstus Listā
+        recordList.put(record.getId(), record); // šī rinda saglabā ierakstus Listā
         System.out.println("You have created a record");
         System.out.println(record); // string lai parādītu uz ekrāna to ko esam ierakstījuši
     }
