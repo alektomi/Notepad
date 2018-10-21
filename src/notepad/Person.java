@@ -1,15 +1,26 @@
 package notepad;
 
-public class Person extends Record { // extends nasleduet vse iz Record, a Person ego rasshiraet.
+import java.time.LocalDate;
+
+public class Person extends Record implements withBirthDay { // extends nasleduet vse iz Record, a Person ego rasshiraet.
     private String name;
     private String surname;
     private String phone;
     private String email;
+    private LocalDate birthday;
 
 
     // tā kā mēs norobežojām mainīgās vērtības mums jānodefinē getters un setters.
 // ar labo peles taustinu izsaucam Generate -> Setters and Getters -> iekāsojām tās vērtības kurām jāizveido getters un setters.
 
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
 
     public String getName() {
         return name;
@@ -53,7 +64,8 @@ public class Person extends Record { // extends nasleduet vse iz Record, a Perso
                 ", Name: " + name +
                 ", Surname: " + surname +
                 ", phone: " + phone +
-                ", e-mail: " + email ;
+                ", e-mail: " + email +
+                ", birthday: " + birthday.format(Main.DATE_FORMATTER);
     }
 
     @Override
@@ -61,7 +73,8 @@ public class Person extends Record { // extends nasleduet vse iz Record, a Perso
         return name.contains(str)
                 || surname.contains(str)
                 || phone.contains(str)
-                || email.contains(str);
+                || email.contains(str)
+                || birthday.format(Main.DATE_FORMATTER).contains(str);
     }
 
     @Override
@@ -74,6 +87,13 @@ public class Person extends Record { // extends nasleduet vse iz Record, a Perso
         phone = Main.insertPhone();
         System.out.print("Insert contact e-mail address: ");
         email = Main.askString();
+        System.out.print("Insert contact birthday date: ");
+        birthday = Main.askDate();
+    }
 
+    @Override
+    public boolean hasBirthday() {
+        LocalDate date = LocalDate.now();
+        return birthday.isEqual(date);
     }
 }

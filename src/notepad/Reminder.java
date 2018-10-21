@@ -45,6 +45,7 @@ public class Reminder extends Alarm implements Expirable{ //nasleduet ot Alarm v
         LocalDateTime dt = LocalDateTime.of(date, time);
         LocalDateTime now = LocalDateTime.now();
         return now.isAfter(dt);
+
     }
 
 }

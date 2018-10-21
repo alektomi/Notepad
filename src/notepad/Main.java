@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+
 public class Main {
     public final static String DATE_FORMAT = "dd.MM.yyyy"; // Zadaem format daty; public = dostupnaja vsem; final = tol'ko zdesj my zadaem znachenija; UPPER case = t.k. jeto konstanta
     public final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT); // formater dat
@@ -26,6 +27,9 @@ public class Main {
                 case "createPerson":
                 case "cp":
                     createPerson();
+                    break;
+                case "pet":
+                    createPet();
                     break;
                 case "createNote":
                 case "note":
@@ -57,6 +61,15 @@ public class Main {
                 case "ex":
                     showExpired();
                     break;
+                case "bd":
+                case "birthdays":
+                    showBirthdays();
+                    break;
+                case "snooze":
+                case "dismiss":
+                case "ds":
+                    dismiss();
+                    break;
                 case "exit":
                     return;
                 default:
@@ -64,6 +77,29 @@ public class Main {
             }
         }
     }
+
+    private static void showBirthdays() {
+        for (Record r : recordList.values()) {
+            if (r instanceof withBirthDay) {
+                withBirthDay e = (withBirthDay) r; //v skobkah ja nasilno podtverzhdaju, chto r vsegda Expirable
+                if (e.hasBirthday()) {
+                    System.out.println(r);
+                }
+            }
+        }
+    }
+
+    private static void createPet() {
+        Pet pet = new Pet();
+        addRecord(pet);
+    }
+
+    private static void dismiss() {
+        System.out.println("What event you want to dismiss? Insert ID number: ");
+        int dismissedID = scanner.nextInt();
+        System.out.println("Event with ID " + dismissedID + " has been dismissed.");
+    }
+
 
     private static void showExpired() {
         for (Record r : recordList.values()) {
@@ -231,9 +267,3 @@ public class Main {
         } while (true);
     }
 }
-
-
-
-
-
-
