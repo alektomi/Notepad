@@ -121,10 +121,6 @@ public class Main {
     private static void showByID() {
         System.out.print("Insert ID for value: ");
         int id = scanner.nextInt();
-
-//        Record record = recordList.get(id);
-//        System.out.println(id);
-
         System.out.println(recordList.get(id)); // cikl ne nuzhen, tak kak my rabotaem s map i associativnym listom
     }
 

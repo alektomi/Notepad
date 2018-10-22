@@ -47,6 +47,10 @@ public class Pet extends Record implements withBirthDay {
     @Override
     public boolean hasBirthday() {
         LocalDate date = LocalDate.now();
-        return birthday.isEqual(date);
+        if (birthday.getMonth() == date.getMonth()) {
+            return true;
+        }
+        return false;
     }
 }
+

@@ -94,6 +94,9 @@ public class Person extends Record implements withBirthDay { // extends nasledue
     @Override
     public boolean hasBirthday() {
         LocalDate date = LocalDate.now();
-        return birthday.isEqual(date);
+        if (birthday.getMonth() == date.getMonth()) {
+            return true;
+        }
+        return false;
     }
 }
